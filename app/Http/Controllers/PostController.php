@@ -49,7 +49,19 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $post = Post::create($request->all());
+        $arr = $request->all();
+        $faculty = $arr['faculty'];
+        $major = $arr['major'];
+        $tags = [
+            'faculty' => $faculty,
+            'major' => $major
+        ];
+        $post = Post::create([
+            'id_user' => $arr['id_user'],
+            'theme' => $arr['theme'],
+            'content' => $arr['content'],
+            'tags' => json_encode($tags)
+        ]);
         return response()->json($post);
     }
 
@@ -74,7 +86,19 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->update($request->all());
+        $arr = $request->all();
+        $faculty = $arr['faculty'];
+        $major = $arr['major'];
+        $tags = [
+            'faculty' => $faculty,
+            'major' => $major
+        ];
+        $post->update([
+            'id_user' => $arr['id_user'],
+            'theme' => $arr['theme'],
+            'content' => $arr['content'],
+            'tags' => json_encode($tags)
+        ]);
         return response()->json($post);
     }
 
